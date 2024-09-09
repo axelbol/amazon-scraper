@@ -21,10 +21,10 @@ def get_soup_url(url):
     return soup
 
 def get_reviews(soup):
+    base_url = 'https://www.amazon.com'
     # css selectors | get review content
     reviews_element = soup.select('div[data-hook="review"]', limit=8)
     reviews_data = []
-    base_url = 'https://www.amazon.com'
 
     for review in reviews_element:
         r_author_element = review.select_one('span.a-profile-name')
@@ -68,7 +68,9 @@ def main():
     soup = get_soup_url(search_url)
     # print(soup.prettify())
     data = get_reviews(soup)
-    print(data)
+    # print(data)
+    # df = pd.DataFrame(data=data)
+    data.to_csv('/home/axel/Code/Python/alexAnalyst/amazon_scraper/amz.csv')
 
 if __name__ == '__main__':
     main()
